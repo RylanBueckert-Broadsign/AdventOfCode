@@ -1,4 +1,6 @@
-﻿namespace AoC2023;
+﻿using AoC2023.Common;
+
+namespace AoC2023;
 
 public static class Day3
 {
@@ -45,7 +47,7 @@ public static class Day3
         var width = lines.First().Length;
         var height = lines.Length;
 
-        var gearCoords = new List<(int row, int col)>();
+        var gearCoords = new List<Coords2D>();
 
         for (var row = 0; row < height; row++)
         {
@@ -58,7 +60,7 @@ public static class Day3
             }
         }
 
-        var nums = (gearCoords.Select(coord => GetSurrounding(lines, coord.row, coord.col).Distinct().ToList()).Where(surr => surr.Count == 2).Select(surr => surr[0] * surr[1])).ToList();
+        var nums = gearCoords.Select(coord => GetSurrounding(lines, coord.Row, coord.Col).Distinct().ToList()).Where(surr => surr.Count == 2).Select(surr => surr[0] * surr[1]).ToList();
 
         Console.WriteLine(nums.Sum());
     }
