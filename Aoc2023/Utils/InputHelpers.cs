@@ -10,4 +10,7 @@ public static class InputHelper
 
     public static IEnumerable<string> ReadLines(string path) =>
         ReadWholeFile(path).Split('\n').Select(i => i.Trim());
+
+    public static char[][] ReadGrid(string path) =>
+        ReadLines(path).Select(i => i.ToArray()).ToArray();
 }

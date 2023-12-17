@@ -7,9 +7,7 @@ public static class Day14
 {
     public static void Run()
     {
-        var lines = InputHelper.ReadLines(@"Day14\input.txt");
-
-        var grid = lines.Select(i => i.ToArray()).ToArray();
+        var grid = InputHelper.ReadGrid(@"Day14\input.txt");
 
         var stateHistory = new Dictionary<string, int>();
         var loadHistory = new List<int>();
