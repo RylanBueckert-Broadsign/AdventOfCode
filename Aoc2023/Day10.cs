@@ -1,4 +1,5 @@
-﻿using AoC2023.Utils;
+﻿using AoC2023.Common;
+using AoC2023.Utils;
 
 namespace AoC2023;
 
@@ -74,9 +75,9 @@ public static class Day10
 
             if (pipeGrid[currLoc.row][currLoc.col]!.IsCorner())
             {
-                var isLeftTurn = (to - from + 4) % 4 == 1;
+                var isLeftTurn = InvertDirection(from).TurnLeft() == to; //(to - from + 4) % 4 == 1;
 
-                dir1 = (Direction)((int)(dir1 + (isLeftTurn ? 3 : 1)) % 4);
+                dir1 = isLeftTurn ? dir1.TurnLeft() : dir1.TurnRight(); //(Direction)((int)(dir1 + (isLeftTurn ? 3 : 1)) % 4);
 
                 cell1 = Move(currLoc, dir1);
                 cell2 = Move(currLoc, InvertDirection(dir1));
@@ -99,6 +100,7 @@ public static class Day10
         Grow(region1, pipeGrid);
         Grow(region2, pipeGrid);
 
+        // Two possible answers (inside and outside). Smaller answer is probably correct
         Console.WriteLine(region1.Count);
         Console.WriteLine(region2.Count);
     }
@@ -142,21 +144,9 @@ public static class Day10
         } while (doAgain);
     }
 
-    // private static Direction NewInside(Direction oldInside, Pipe pipe)
-    // {
-    //     return oldInside switch
-    //     {
-    //         Direction.Down => pipe.Has(Direction.Up) ? Direction.Right : Direction.Left,
-    //         Direction.Up => pipe.Has(Direction.Up) ? Direction.Left : Direction.Right,
-    //         Direction.Left => pipe.Has(Direction.Left) ? Direction.Up : Direction.Down,
-    //         Direction.Right => pipe.Has(Direction.Left) ? Direction.Down : Direction.Up,
-    //         _ => throw new ArgumentOutOfRangeException(nameof(oldInside), oldInside, null)
-    //     };
-    // }
-
     private static Direction InvertDirection(Direction dir)
     {
-        return (Direction)((int)(dir + 2) % 4);
+        return dir.TurnRight(2);
         // return dir switch
         // {
         //     Direction.Up => Direction.Down,
@@ -244,14 +234,6 @@ public static class Day10
         }
 
         throw new Exception("Cannot find pipe");
-    }
-
-    private enum Direction
-    {
-        Up,
-        Right,
-        Down,
-        Left
     }
 
     private record Pipe(Direction D1, Direction D2)
