@@ -1,0 +1,6 @@
+﻿#editor
+.idea
+
+# Build
+[Bb]in/
+[Oo]bj/
