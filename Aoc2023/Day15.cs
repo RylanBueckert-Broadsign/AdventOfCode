@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using AoC2023.Utils;
 
 namespace AoC2023;
 
@@ -6,8 +7,7 @@ public static class Day15
 {
     public static void Run()
     {
-        var sr = new StreamReader(@"C:\Source\AoC2023\Day15\input.txt");
-        var input = sr.ReadToEnd().Trim();
+        var input = InputHelper.ReadWholeFile(@"Day15\input.txt");
 
         var initSequence = input.Split(',');
 

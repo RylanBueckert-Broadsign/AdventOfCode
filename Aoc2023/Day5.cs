@@ -1,4 +1,6 @@
-﻿namespace AoC2023;
+﻿using AoC2023.Utils;
+
+namespace AoC2023;
 
 public static class Day5
 {
@@ -12,8 +14,7 @@ public static class Day5
 
     public static void Run()
     {
-        var sr = new StreamReader(@"C:\Source\AoC2023\Day5\input.txt");
-        var input = sr.ReadToEnd();
+        var input = InputHelper.ReadWholeFile(@"Day5\input.txt");
 
         const string s0 = "seeds:";
         const string s1 = "seed-to-soil map:";

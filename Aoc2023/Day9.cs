@@ -1,12 +1,12 @@
-﻿namespace AoC2023;
+﻿using AoC2023.Utils;
+
+namespace AoC2023;
 
 public static class Day9
 {
     public static void Run()
     {
-        var sr = new StreamReader(@"C:\Source\AoC2023\Day9\input.txt");
-        var input = sr.ReadToEnd().Trim();
-        var lines = input.Split('\n').Select(i => i.Trim()).ToList();
+        var lines = InputHelper.ReadLines(@"Day9\input.txt").ToList();
 
         var histories = lines.Select(l => l.Split().Select(int.Parse).ToList()).ToList();
 

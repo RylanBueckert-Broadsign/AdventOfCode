@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using AoC2023.Utils;
 
 namespace AoC2023;
 
@@ -6,9 +7,7 @@ public static class Day12
 {
     public static void Run()
     {
-        var sr = new StreamReader(@"C:\Source\AoC2023\Day12\input.txt");
-        var input = sr.ReadToEnd().Trim();
-        var lines = input.Split('\n').Select(i => i.Trim());
+        var lines = InputHelper.ReadLines(@"Day12\input.txt");
 
         var record = lines.Select(l =>
         {
@@ -94,7 +93,7 @@ public static class Day12
                     sb[currGroupIdx >= 0 ? i - currGroupIdx : 0] = '#';
                     var damagedPossibilities = PossibleArrangements(sb.ToString(), newGroups);
 
-                    return Memorize(token, (int)operationalPossibilities + (int)damagedPossibilities);
+                    return Memorize(token, operationalPossibilities + damagedPossibilities);
                     break;
                 default: throw new Exception();
             }

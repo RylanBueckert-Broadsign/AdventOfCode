@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using AoC2023.Utils;
 
 namespace AoC2023;
 
@@ -6,9 +7,7 @@ public static class Day13
 {
     public static void Run()
     {
-        var sr = new StreamReader(@"C:\Source\AoC2023\Day13\input.txt");
-        var input = sr.ReadToEnd().Trim();
-        var lines = input.Split('\n').Select(i => i.Trim()).ToList();
+        var lines = InputHelper.ReadLines(@"Day13\input.txt").ToList();
 
         var puzzlesRaw = new List<List<string>>();
 

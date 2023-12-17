@@ -6,6 +6,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <RootNamespace>AoC2023</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="input\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 
 </Project>
