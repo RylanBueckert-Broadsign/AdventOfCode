@@ -12,7 +12,7 @@ public static class DirectionExtensions
 {
     public static Direction TurnLeft(this Direction @this, int times = 1)
     {
-        return (Direction)((int)(@this + 4 - times % 4) % 4);
+        return @this.TurnRight(4 - times % 4);
     }
 
     public static Direction TurnRight(this Direction @this, int times = 1)

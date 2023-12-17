@@ -29,7 +29,7 @@ public static class Day10
         {
             var to = pipeGrid[currLoc.Row][currLoc.Col]!.Travel(from);
 
-            currLoc = Move(currLoc, to);
+            currLoc = currLoc.Move(to);
             from = InvertDirection(to);
             loopLength++;
             loopEdge.Add(currLoc);
@@ -58,8 +58,8 @@ public static class Day10
 
         do
         {
-            var cell1 = Move(currLoc, dir1);
-            var cell2 = Move(currLoc, InvertDirection(dir1));
+            var cell1 = currLoc.Move(dir1);
+            var cell2 = currLoc.Move(InvertDirection(dir1));
 
             if (cell1.Row >= 0 && cell1.Row < pipeGrid.Count && cell1.Col >= 0 && cell1.Col < pipeGrid[cell1.Row].Count && pipeGrid[cell1.Row][cell1.Col] == null)
             {
@@ -79,8 +79,8 @@ public static class Day10
 
                 dir1 = isLeftTurn ? dir1.TurnLeft() : dir1.TurnRight();
 
-                cell1 = Move(currLoc, dir1);
-                cell2 = Move(currLoc, InvertDirection(dir1));
+                cell1 = currLoc.Move(dir1);
+                cell2 = currLoc.Move(InvertDirection(dir1));
 
                 if (cell1.Row >= 0 && cell1.Row < pipeGrid.Count && cell1.Col >= 0 && cell1.Col < pipeGrid[cell1.Row].Count && pipeGrid[cell1.Row][cell1.Col] == null)
                 {
@@ -93,7 +93,7 @@ public static class Day10
                 }
             }
 
-            currLoc = Move(currLoc, to);
+            currLoc = currLoc.Move(to);
             from = InvertDirection(to);
         } while (currLoc != start);
 
@@ -155,18 +155,6 @@ public static class Day10
         //     Direction.Right => Direction.Left,
         //     _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
         // };
-    }
-
-    private static Coords2D Move(this Coords2D curr, Direction dir)
-    {
-        return dir switch
-        {
-            Direction.Up => (curr.Row - 1, curr.Col),
-            Direction.Down => (curr.Row + 1, curr.Col),
-            Direction.Left => (curr.Row, curr.Col - 1),
-            Direction.Right => (curr.Row, curr.Col + 1),
-            _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, null)
-        };
     }
 
     private static Pipe InferPipe(List<List<Pipe?>> grid, int row, int col)
