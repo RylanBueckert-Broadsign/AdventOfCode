@@ -12,5 +12,8 @@ public static class InputHelper
         ReadWholeFile(path).Split('\n').Select(i => i.Trim());
 
     public static char[][] ReadGrid(string path) =>
-        ReadLines(path).Select(i => i.ToArray()).ToArray();
+        ReadGrid(path, c => c);
+
+    public static T[][] ReadGrid<T>(string path, Func<char, T> transformFunc) =>
+        ReadLines(path).Select(i => i.Select(transformFunc).ToArray()).ToArray();
 }

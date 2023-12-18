@@ -5,8 +5,6 @@ namespace AoC2023;
 
 public static class Day16
 {
-    // private static readonly HashSet<(Coords2D loc, Direction dir)> History = new();
-
     public static void Run()
     {
         var grid = InputHelper.ReadGrid(@"Day16\input.txt");

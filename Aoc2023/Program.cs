@@ -1,9 +1,17 @@
-﻿namespace AoC2023;
+﻿using System.Diagnostics;
+
+namespace AoC2023;
 
 internal static class Program
 {
     public static void Main()
     {
-        Day16.Run();
+        var stopWatch = new Stopwatch();
+        stopWatch.Start();
+
+        Day17.Run();
+
+        stopWatch.Stop();
+        Console.WriteLine($"Ran in {stopWatch.ElapsedMilliseconds} ms");
     }
 }
