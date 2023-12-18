@@ -11,14 +11,14 @@ public record Coords2D(int Row, int Col)
 
 public static class CoordsExtensions
 {
-    public static Coords2D Move(this Coords2D curr, Direction dir)
+    public static Coords2D Move(this Coords2D curr, Direction dir, int count = 1)
     {
         return dir switch
         {
-            Direction.Up => (curr.Row - 1, curr.Col),
-            Direction.Down => (curr.Row + 1, curr.Col),
-            Direction.Left => (curr.Row, curr.Col - 1),
-            Direction.Right => (curr.Row, curr.Col + 1),
+            Direction.Up => (curr.Row - count, curr.Col),
+            Direction.Down => (curr.Row + count, curr.Col),
+            Direction.Left => (curr.Row, curr.Col - count),
+            Direction.Right => (curr.Row, curr.Col + count),
             _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, "Provided direction is not valid.")
         };
     }
