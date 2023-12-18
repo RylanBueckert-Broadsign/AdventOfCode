@@ -56,18 +56,18 @@ public static class Day2
 
         Console.WriteLine(sum);
     }
-}
 
-public record Rgb(int Red, int Green, int Blue);
+    private record Rgb(int Red, int Green, int Blue);
 
-internal class Game
-{
-    public Game(int id)
+    private class Game
     {
-        Id = id;
+        public Game(int id)
+        {
+            Id = id;
+        }
+
+        public int Id { get; }
+
+        public List<Rgb> Pulls { get; } = new List<Rgb>();
     }
-
-    public int Id { get; }
-
-    public List<Rgb> Pulls { get; } = new List<Rgb>();
 }
