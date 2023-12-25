@@ -13,7 +13,7 @@ public static class Day22
 
         var lowestBricks = bricks.OrderBy(b => Math.Min(b.End1.Z, b.End2.Z)).ToList();
 
-        var heightMap = new Dictionary<Coords2D, int>();
+        var heightMap = new Dictionary<Vec2D<int>, int>();
 
         var supports = new Dictionary<Brick, HashSet<Brick>>();
 
@@ -21,7 +21,7 @@ public static class Day22
         {
             var lowestZ = Math.Min(brick.End1.Z, brick.End2.Z);
 
-            var below = brick.AllBlocks().Select(b => new Coords2D(b.X, b.Y)).Distinct().ToList();
+            var below = brick.AllBlocks().Select(b => new Vec2D<int>(b.X, b.Y)).Distinct().ToList();
 
             var newZ = below.Select(loc => heightMap.TryGetValue(loc, out var hmValue) ? hmValue : 0).Max() + 1;
 
@@ -66,7 +66,7 @@ public static class Day22
 
             return supportCounts.Count(sc => sc.Value == 0);
         });
-        
+
         Console.WriteLine(chainReaction.Sum());
     }
 
@@ -79,23 +79,23 @@ public static class Day22
 
     private record Brick
     {
-        public Coords3D End1 { get; private set; }
-        public Coords3D End2 { get; private set; }
+        public Vec3D<int> End1 { get; private set; }
+        public Vec3D<int> End2 { get; private set; }
 
-        public Brick(Coords3D End1, Coords3D End2)
+        public Brick(Vec3D<int> End1, Vec3D<int> End2)
         {
             this.End1 = End1;
             this.End2 = End2;
         }
 
-        public bool Contains(Coords3D block)
+        public bool Contains(Vec3D<int> block)
         {
             return IsBetween(block.X, End1.X, End2.X) &&
                 IsBetween(block.Y, End1.Y, End2.Y) &&
                 IsBetween(block.Z, End1.Z, End2.Z);
         }
 
-        public IEnumerable<Coords3D> AllBlocks()
+        public IEnumerable<Vec3D<int>> AllBlocks()
         {
             for (var x = Math.Min(End1.X, End2.X); x <= Math.Max(End1.X, End2.X); x++)
             {

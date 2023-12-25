@@ -12,8 +12,8 @@ public static class Day23
         var height = grid.Length;
         var width = grid[0].Length;
 
-        var start = new Coords2D(0, Array.IndexOf(grid[0], '.'));
-        var end = new Coords2D(height - 1, Array.IndexOf(grid[height - 1], '.'));
+        var start = new Vec2D<int>(0, Array.IndexOf(grid[0], '.'));
+        var end = new Vec2D<int>(height - 1, Array.IndexOf(grid[height - 1], '.'));
 
         var graph = CreateGraph(grid);
         PruneGraph(graph);
@@ -41,10 +41,10 @@ public static class Day23
         }
     }
 
-    private static Dictionary<Coords2D, Node> CreateGraph(char[][] grid)
+    private static Dictionary<Vec2D<int>, Node> CreateGraph(char[][] grid)
     {
         var graph = grid
-            .SelectMany((row, rowIdx) => row.Select((c, colIdx) => new { coords = new Coords2D(rowIdx, colIdx), c }))
+            .SelectMany((row, rowIdx) => row.Select((c, colIdx) => new { coords = new Vec2D<int>(rowIdx, colIdx), c }))
             .Where(i => i.c != '#')
             .ToDictionary(i => i.coords, _ => new Node());
 
@@ -65,7 +65,7 @@ public static class Day23
         return graph;
     }
 
-    private static void PruneGraph(Dictionary<Coords2D, Node> graph)
+    private static void PruneGraph(Dictionary<Vec2D<int>, Node> graph)
     {
         foreach (var node in graph)
         {
@@ -87,7 +87,7 @@ public static class Day23
         }
     }
 
-    private static int? LongestPath(Dictionary<Coords2D, Node> graph, Node start, Node end, HashSet<Node> visited)
+    private static int? LongestPath(Dictionary<Vec2D<int>, Node> graph, Node start, Node end, HashSet<Node> visited)
     {
         if (start == end)
             return 0;

@@ -12,9 +12,9 @@ public static class Day18
 
         var instructions = lines.Select(ParseHexInstruction);
 
-        var vertices = new List<Coords2D>();
+        var vertices = new List<Vec2D<int>>();
 
-        var currentLocation = new Coords2D(0, 0);
+        var currentLocation = new Vec2D<int>(0, 0);
         var perimeter = 0;
 
         foreach (var instruction in instructions)
@@ -30,9 +30,9 @@ public static class Day18
         Console.WriteLine(size);
     }
 
-    private static long ShoelaceArea(List<Coords2D> vertices)
+    private static long ShoelaceArea(List<Vec2D<int>> vertices)
     {
-        var terms = vertices.Skip(1).Select((coords, i) => (long)(coords.Row + vertices[i].Row) * (coords.Col - vertices[i].Col));
+        var terms = vertices.Skip(1).Select((coords, i) => (long)(coords.X + vertices[i].X) * (coords.Y - vertices[i].Y));
 
         return Math.Abs(terms.Sum()) / 2;
     }
@@ -54,13 +54,13 @@ public static class Day18
 
         return new DigInstruction(dir, count);
     }
-    
+
     private static DigInstruction ParseHexInstruction(string instruction)
     {
         var x = instruction.Split(' ');
 
         var hex = x[2][2..^1];
-        
+
         var dir = hex[^1] switch
         {
             '3' => Direction.Up,

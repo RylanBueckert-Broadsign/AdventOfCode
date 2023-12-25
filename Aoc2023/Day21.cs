@@ -11,12 +11,12 @@ public static class Day21
         const int maxSteps = 16; //26501365;
 
         var start = grid
-            .SelectMany((row, rowIdx) => row.Select((c, colIdx) => new { coords = new Coords2D(rowIdx, colIdx), c }))
+            .SelectMany((row, rowIdx) => row.Select((c, colIdx) => new { coords = new Vec2D<int>(rowIdx, colIdx), c }))
             .Where(i => i.c == 'S').Select(i => i.coords)
             .Single();
 
-        var shortestPaths = new Dictionary<Coords2D, int>();
-        var candidates = new PriorityQueue<Coords2D, int>();
+        var shortestPaths = new Dictionary<Vec2D<int>, int>();
+        var candidates = new PriorityQueue<Vec2D<int>, int>();
 
         candidates.Enqueue(start, 0);
 
@@ -44,15 +44,15 @@ public static class Day21
 
         return;
 
-        bool IsValidCoords(Coords2D loc) => loc.Row >= 0 && loc.Row < Height() && loc.Col >= 0 && loc.Col < Width();
+        bool IsValidCoords(Vec2D<int> loc) => loc.X >= 0 && loc.X < Height() && loc.Y >= 0 && loc.Y < Width();
 
         int Height() => grid.Length;
         int Width() => grid[0].Length;
 
-        char At(Coords2D loc)
+        char At(Vec2D<int> loc)
         {
-            var row = loc.Row % Height();
-            var col = loc.Col % Height();
+            var row = loc.X % Height();
+            var col = loc.Y % Height();
 
             return grid[row < 0 ? Height() + row : row][col < 0 ? Width() + col : col];
         }

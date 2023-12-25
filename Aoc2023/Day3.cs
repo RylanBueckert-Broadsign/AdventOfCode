@@ -47,7 +47,7 @@ public static class Day3
         var width = lines.First().Length;
         var height = lines.Length;
 
-        var gearCoords = new List<Coords2D>();
+        var gearCoords = new List<Vec2D<int>>();
 
         for (var row = 0; row < height; row++)
         {
@@ -60,7 +60,7 @@ public static class Day3
             }
         }
 
-        var nums = gearCoords.Select(coord => GetSurrounding(lines, coord.Row, coord.Col).Distinct().ToList()).Where(surr => surr.Count == 2).Select(surr => surr[0] * surr[1]).ToList();
+        var nums = gearCoords.Select(coord => GetSurrounding(lines, coord.X, coord.Y).Distinct().ToList()).Where(surr => surr.Count == 2).Select(surr => surr[0] * surr[1]).ToList();
 
         Console.WriteLine(nums.Sum());
     }

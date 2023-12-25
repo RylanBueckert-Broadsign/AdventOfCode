@@ -15,19 +15,19 @@ public static class Day10
 
         var pipeGrid = grid.Select(i => i.Select(GetPipe).ToList()).ToList();
 
-        var startPipe = InferPipe(pipeGrid, start.Row, start.Col);
-        pipeGrid[start.Row][start.Col] = startPipe;
+        var startPipe = InferPipe(pipeGrid, start.X, start.Y);
+        pipeGrid[start.X][start.Y] = startPipe;
 
         var currLoc = start;
         var loopLength = 0;
 
-        var from = pipeGrid[currLoc.Row][currLoc.Col]!.D2;
+        var from = pipeGrid[currLoc.X][currLoc.Y]!.D2;
 
-        var loopEdge = new List<Coords2D>();
+        var loopEdge = new List<Vec2D<int>>();
 
         do
         {
-            var to = pipeGrid[currLoc.Row][currLoc.Col]!.Travel(from);
+            var to = pipeGrid[currLoc.X][currLoc.Y]!.Travel(from);
 
             currLoc = currLoc.Move(to);
             from = InvertDirection(to);
@@ -51,29 +51,29 @@ public static class Day10
         // var firstPipe = GetFirstPipe(pipeGrid);
 
         currLoc = start;
-        from = pipeGrid[currLoc.Row][currLoc.Col]!.D2;
+        from = pipeGrid[currLoc.X][currLoc.Y]!.D2;
         var dir1 = from + 1 % 4;
-        var region1 = new HashSet<Coords2D>();
-        var region2 = new HashSet<Coords2D>();
+        var region1 = new HashSet<Vec2D<int>>();
+        var region2 = new HashSet<Vec2D<int>>();
 
         do
         {
             var cell1 = currLoc.Move(dir1);
             var cell2 = currLoc.Move(InvertDirection(dir1));
 
-            if (cell1.Row >= 0 && cell1.Row < pipeGrid.Count && cell1.Col >= 0 && cell1.Col < pipeGrid[cell1.Row].Count && pipeGrid[cell1.Row][cell1.Col] == null)
+            if (cell1.X >= 0 && cell1.X < pipeGrid.Count && cell1.Y >= 0 && cell1.Y < pipeGrid[cell1.X].Count && pipeGrid[cell1.X][cell1.Y] == null)
             {
                 region1.Add(cell1);
             }
 
-            if (cell2.Row >= 0 && cell2.Row < pipeGrid.Count && cell2.Col >= 0 && cell2.Col < pipeGrid[cell2.Row].Count && pipeGrid[cell2.Row][cell2.Col] == null)
+            if (cell2.X >= 0 && cell2.X < pipeGrid.Count && cell2.Y >= 0 && cell2.Y < pipeGrid[cell2.X].Count && pipeGrid[cell2.X][cell2.Y] == null)
             {
                 region2.Add(cell2);
             }
 
-            var to = pipeGrid[currLoc.Row][currLoc.Col]!.Travel(from);
+            var to = pipeGrid[currLoc.X][currLoc.Y]!.Travel(from);
 
-            if (pipeGrid[currLoc.Row][currLoc.Col]!.IsCorner())
+            if (pipeGrid[currLoc.X][currLoc.Y]!.IsCorner())
             {
                 var isLeftTurn = InvertDirection(from).TurnLeft() == to;
 
@@ -82,12 +82,12 @@ public static class Day10
                 cell1 = currLoc.Move(dir1);
                 cell2 = currLoc.Move(InvertDirection(dir1));
 
-                if (cell1.Row >= 0 && cell1.Row < pipeGrid.Count && cell1.Col >= 0 && cell1.Col < pipeGrid[cell1.Row].Count && pipeGrid[cell1.Row][cell1.Col] == null)
+                if (cell1.X >= 0 && cell1.X < pipeGrid.Count && cell1.Y >= 0 && cell1.Y < pipeGrid[cell1.X].Count && pipeGrid[cell1.X][cell1.Y] == null)
                 {
                     region1.Add(cell1);
                 }
 
-                if (cell2.Row >= 0 && cell2.Row < pipeGrid.Count && cell2.Col >= 0 && cell2.Col < pipeGrid[cell2.Row].Count && pipeGrid[cell2.Row][cell2.Col] == null)
+                if (cell2.X >= 0 && cell2.X < pipeGrid.Count && cell2.Y >= 0 && cell2.Y < pipeGrid[cell2.X].Count && pipeGrid[cell2.X][cell2.Y] == null)
                 {
                     region2.Add(cell2);
                 }
@@ -105,35 +105,35 @@ public static class Day10
         Console.WriteLine(region2.Count);
     }
 
-    private static void Grow(HashSet<Coords2D> region, List<List<Pipe?>> grid)
+    private static void Grow(HashSet<Vec2D<int>> region, List<List<Pipe?>> grid)
     {
         bool doAgain;
 
         do
         {
             doAgain = false;
-            var toAdd = new List<Coords2D>();
+            var toAdd = new List<Vec2D<int>>();
 
             foreach (var loc in region)
             {
-                if (loc.Row > 0 && grid[loc.Row - 1][loc.Col] == null)
+                if (loc.X > 0 && grid[loc.X - 1][loc.Y] == null)
                 {
-                    toAdd.Add((loc.Row - 1, loc.Col));
+                    toAdd.Add((loc.X - 1, loc.Y));
                 }
 
-                if (loc.Col > 0 && grid[loc.Row][loc.Col - 1] == null)
+                if (loc.Y > 0 && grid[loc.X][loc.Y - 1] == null)
                 {
-                    toAdd.Add((loc.Row, loc.Col - 1));
+                    toAdd.Add((loc.X, loc.Y - 1));
                 }
 
-                if (loc.Row + 1 < grid.Count && grid[loc.Row + 1][loc.Col] == null)
+                if (loc.X + 1 < grid.Count && grid[loc.X + 1][loc.Y] == null)
                 {
-                    toAdd.Add((loc.Row + 1, loc.Col));
+                    toAdd.Add((loc.X + 1, loc.Y));
                 }
 
-                if (loc.Col + 1 < grid[loc.Row].Count && grid[loc.Row][loc.Col + 1] == null)
+                if (loc.Y + 1 < grid[loc.X].Count && grid[loc.X][loc.Y + 1] == null)
                 {
-                    toAdd.Add((loc.Row, loc.Col + 1));
+                    toAdd.Add((loc.X, loc.Y + 1));
                 }
             }
 
@@ -198,7 +198,7 @@ public static class Day10
         };
     }
 
-    private static Coords2D GetStartingPosition(List<List<char>> grid)
+    private static Vec2D<int> GetStartingPosition(List<List<char>> grid)
     {
         for (var row = 0; row < grid.Count; row++)
         {
@@ -211,7 +211,7 @@ public static class Day10
         throw new Exception("Cannot find start");
     }
 
-    private static Coords2D GetFirstPipe(List<List<Pipe?>> grid)
+    private static Vec2D<int> GetFirstPipe(List<List<Pipe?>> grid)
     {
         for (var row = 0; row < grid.Count; row++)
         {

@@ -11,25 +11,25 @@ public static class Day16
 
         var leftStart = Enumerable.Range(0, grid.Length).Select(i => new
         {
-            loc = new Coords2D(i, 0),
+            loc = new Vec2D<int>(i, 0),
             dir = Direction.Right
         });
 
         var rightStart = Enumerable.Range(0, grid.Length).Select(i => new
         {
-            loc = new Coords2D(i, grid[0].Length - 1),
+            loc = new Vec2D<int>(i, grid[0].Length - 1),
             dir = Direction.Left
         });
 
         var topStart = Enumerable.Range(0, grid[0].Length).Select(i => new
         {
-            loc = new Coords2D(0, i),
+            loc = new Vec2D<int>(0, i),
             dir = Direction.Down
         });
 
         var bottomStart = Enumerable.Range(0, grid[0].Length).Select(i => new
         {
-            loc = new Coords2D(grid.Length - 1, i),
+            loc = new Vec2D<int>(grid.Length - 1, i),
             dir = Direction.Up
         });
 
@@ -37,7 +37,7 @@ public static class Day16
 
         var energized = allStarts.Select(s =>
         {
-            var history = new HashSet<(Coords2D loc, Direction dir)>();
+            var history = new HashSet<(Vec2D<int> loc, Direction dir)>();
             ShineBeam(grid, s.loc, s.dir, history);
 
             return history.Select(i => i.loc).Distinct().Count();
@@ -46,15 +46,15 @@ public static class Day16
         Console.WriteLine(energized.Max());
     }
 
-    private static void ShineBeam(char[][] grid, Coords2D location, Direction direction, HashSet<(Coords2D loc, Direction dir)> history)
+    private static void ShineBeam(char[][] grid, Vec2D<int> location, Direction direction, HashSet<(Vec2D<int> loc, Direction dir)> history)
     {
         while (true)
         {
-            if (location.Row < 0 || location.Row >= grid.Length || location.Col < 0 || location.Col >= grid[location.Row].Length) return;
+            if (location.X < 0 || location.X >= grid.Length || location.Y < 0 || location.Y >= grid[location.X].Length) return;
 
             if (!history.Add((location, direction))) return;
 
-            switch (grid[location.Row][location.Col])
+            switch (grid[location.X][location.Y])
             {
                 case '.':
                     location = location.Move(direction);

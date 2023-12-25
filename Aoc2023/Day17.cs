@@ -11,7 +11,7 @@ public static class Day17
 
         var height = grid.Length;
         var width = grid[0].Length;
-        var dest = new Coords2D(height - 1, width - 1);
+        var dest = new Vec2D<int>(height - 1, width - 1);
 
         var shortestPaths = new Dictionary<Node, int>();
         var candidates = new PriorityQueue<Node, int>();
@@ -43,7 +43,7 @@ public static class Day17
                 if (IsValidCoords(leftLoc))
                 {
                     var leftNode = new Node(leftLoc, left, 1);
-                    var leftPath = shortestPath + grid[leftLoc.Row][leftLoc.Col];
+                    var leftPath = shortestPath + grid[leftLoc.X][leftLoc.Y];
 
                     if (!shortestPaths.ContainsKey(leftNode))
                     {
@@ -60,7 +60,7 @@ public static class Day17
                 if (IsValidCoords(rightLoc))
                 {
                     var rightNode = new Node(rightLoc, right, 1);
-                    var rightPath = shortestPath + grid[rightLoc.Row][rightLoc.Col];
+                    var rightPath = shortestPath + grid[rightLoc.X][rightLoc.Y];
 
                     if (!shortestPaths.ContainsKey(rightNode))
                     {
@@ -76,7 +76,7 @@ public static class Day17
                 if (IsValidCoords(straightLoc))
                 {
                     var straightNode = new Node(straightLoc, bestNode.StraightDirection, bestNode.StraightCount + 1);
-                    var straightPath = shortestPath + grid[straightLoc.Row][straightLoc.Col];
+                    var straightPath = shortestPath + grid[straightLoc.X][straightLoc.Y];
 
                     if (!shortestPaths.ContainsKey(straightNode))
                     {
@@ -88,8 +88,8 @@ public static class Day17
 
         return;
 
-        bool IsValidCoords(Coords2D loc) => loc.Row >= 0 && loc.Row < height && loc.Col >= 0 && loc.Col < width;
+        bool IsValidCoords(Vec2D<int> loc) => loc.X >= 0 && loc.X < height && loc.Y >= 0 && loc.Y < width;
     }
 
-    private record Node(Coords2D Location, Direction StraightDirection, int StraightCount);
+    private record Node(Vec2D<int> Location, Direction StraightDirection, int StraightCount);
 }
