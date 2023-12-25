@@ -9,6 +9,15 @@ public record Coords2D(int Row, int Col)
         (coords.Row, coords.Col);
 };
 
+public record Coords3D(int X, int Y, int Z)
+{
+    public static implicit operator Coords3D((int, int, int) tuple) =>
+        new Coords3D(tuple.Item1, tuple.Item2, tuple.Item3);
+
+    public static implicit operator (int, int, int)(Coords3D coords) =>
+        (coords.X, coords.Y, coords.Z);
+};
+
 public static class CoordsExtensions
 {
     public static Coords2D Move(this Coords2D curr, Direction dir, int count = 1)
