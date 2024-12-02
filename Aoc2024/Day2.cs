@@ -10,15 +10,7 @@ public class Day2 : IAocDay
 
         var reports = input.Select(r => r.Split(' ').Select(int.Parse));
 
-        // var diffReports = reports.Select(report => report.Skip(1).Select((level, idx) => level - report[idx]));
-
         var safeReports = reports.Select(r => IsSafe(r) || IsSafe(r.Reverse()));
-        // {
-        //     
-        //     
-        //     var enumerable = r.ToList();
-        //     return enumerable.All(d => d is >= 1 and <= 3) || enumerable.All(d => d is <= -1 and >= -3);
-        // });
 
         Console.WriteLine(safeReports.Count(i => i));
     }
