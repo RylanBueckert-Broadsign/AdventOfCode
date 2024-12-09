@@ -4,13 +4,6 @@ namespace Aoc2024;
 
 public class Day7 : IAocDay
 {
-    // private class Equation
-    // {
-    //     public long TestValue { get; }
-    //     
-    //     public List<long>
-    // }
-
     public void Run(string inputPath)
     {
         var input = InputHelper.ReadLines(inputPath);

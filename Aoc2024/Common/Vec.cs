@@ -1,4 +1,5 @@
-﻿using Aoc2024.Common;
+﻿using System.Numerics;
+using Aoc2024.Common;
 
 namespace AoC2024.Common;
 
@@ -33,4 +34,13 @@ public static class VecExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(dir), dir, "Provided direction is not valid.")
         };
     }
+
+    public static Vec2D<T> Add<T>(this Vec2D<T> a, Vec2D<T> b) where T : IAdditionOperators<T, T, T> =>
+        (a.X + b.X, a.Y + b.Y);
+
+    public static Vec2D<T> Subtract<T>(this Vec2D<T> a, Vec2D<T> b) where T : ISubtractionOperators<T, T, T> =>
+        (a.X - b.X, a.Y - b.Y);
+
+    public static Vec2D<T> Multiply<T>(this Vec2D<T> a, T b) where T : IMultiplyOperators<T, T, T> =>
+        (a.X * b, a.Y * b);
 }
