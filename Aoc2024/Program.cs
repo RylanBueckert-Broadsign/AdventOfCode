@@ -9,8 +9,7 @@ internal static class Program
         var stopWatch = new Stopwatch();
         stopWatch.Start();
 
-        new Day9().Run(@"Day9\sample.txt");
-        new Day9().Run(@"Day9\input.txt");
+        new Day10().Run(@"Day10\input.txt");
 
         stopWatch.Stop();
         Console.WriteLine($"Ran in {stopWatch.ElapsedMilliseconds} ms");
