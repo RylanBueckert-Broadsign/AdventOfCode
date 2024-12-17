@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
-using Aoc2024.Common;
 
-namespace AoC2024.Common;
+namespace Aoc2024.Common;
 
 public record Vec2D<T>(T X, T Y)
 {
