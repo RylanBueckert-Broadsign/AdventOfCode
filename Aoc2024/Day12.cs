@@ -1,5 +1,7 @@
 ﻿using Aoc2024.Common;
 
+#pragma warning disable CS8321 // Local function is declared but never used
+
 namespace Aoc2024;
 
 public class Day12 : IAocDay

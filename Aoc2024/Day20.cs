@@ -61,10 +61,5 @@ public class Day20 : IAocDay
         });
 
         Console.WriteLine(cheats.Count(c => c.timeSaved >= 100));
-
-        return;
-
-        bool OutOfBounds(Vec2D<int> pos) =>
-            pos.X < 0 || pos.Y < 0 || pos.X >= grid.Length || pos.Y > grid[0].Length;
     }
 }
