@@ -2,14 +2,16 @@
 
 public static class InputHelper
 {
-    public static string ReadWholeFile(string path)
+    public static string ReadWholeFile(string path, bool trim = true)
     {
         using var sr = new StreamReader(@$".\input\{path}");
-        return sr.ReadToEnd().Trim();
+
+        var content = sr.ReadToEnd().Replace("\r", "");
+        return trim ? content.Trim() : content;
     }
 
-    public static IEnumerable<string> ReadLines(string path) =>
-        ReadWholeFile(path).Split('\n', StringSplitOptions.TrimEntries);
+    public static IEnumerable<string> ReadLines(string path, bool trim = true) =>
+        ReadWholeFile(path, trim).Split('\n', trim ? StringSplitOptions.TrimEntries : StringSplitOptions.None).Where(l => !string.IsNullOrWhiteSpace(l));
 
     public static char[][] ReadGrid(string path) =>
         ReadGrid(path, c => c);
