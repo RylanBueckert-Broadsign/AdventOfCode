@@ -54,7 +54,7 @@ public class Day8 : IAocDay
         return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
     }
 
-    private class JunctionBox
+    private sealed class JunctionBox
     {
         public JunctionBox(Vec3D<long> position)
         {
